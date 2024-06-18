@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@appbaseio/reactivesearch-vue": "^3.3.7-beta.2",
+    "vue": "^3.4.29"
+  }
+}

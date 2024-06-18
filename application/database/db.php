@@ -13,7 +13,7 @@
     }
 
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, 'https://parseapi.back4app.com/classes/Carmodels_Car_Model_List_Audi?limit=500&order=Make');
+    curl_setopt($curl, CURLOPT_URL, 'https://parseapi.back4app.com/classes/Carmodels_Car_Model_List_Porsche?limit=500');
     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
         'X-Parse-Application-Id: Kl5aF8nSOg7pxik07UDNqFUcCgfKiIyhB4RuqaEH', // This is your app's application id
         'X-Parse-REST-API-Key: hiSL5izojkeLd2Rto6CdnHKz6PzPyvM1ipQFewjx' // This is your app's REST API key
@@ -50,7 +50,7 @@
         }
 
         foreach($models as $model => $year){
-            $sql = "INSERT INTO carros (id_marca, modelo, ano_lancamento, carroceria) VALUES (23, '{$model}', '{$year}', 'Sedan')";
+            $sql = "INSERT INTO carros (id_marca, modelo, ano_lancamento, carroceria) VALUES (29, '{$model}', '{$year}', 'Sedan')";
             if ($conn->query($sql) === TRUE) {
                 echo "New record created successfully";
             } else {
