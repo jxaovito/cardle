@@ -1,9 +1,20 @@
-<?php 
+<?php
 
-function index(Request $request){
-    $query = $request->get('q');
-    $results = Car::where('model', 'like', "%{$query}%")->get();
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Game;
+
+class SearchController extends Controller{
+
+    public function index(Request $request){
+    $query = $request->input('q');
+    $game = new Game;
+    $results = $game->search($query);
+
     return response()->json($results);
 }
 
-?>
+
+
+}

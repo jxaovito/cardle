@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/game', 'App\Http\Controllers\GameController@index');
+Route::post('/search', 'App\Http\Controllers\SearchController@index');

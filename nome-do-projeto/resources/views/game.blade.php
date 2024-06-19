@@ -33,11 +33,10 @@
             border-radius: 5px;
         }
         </style>
-    <template>
     <div id="app">
-    <search-component></search-component>
-</div>
-</template>
+       <autocomplete-input></autocomplete-input>
+    </div>
+<script src="{{ mix('js/app.js') }}"></script></div>
 
     <div id="app"></div>
     <!-- <script type="module" src="../js/main.js"></script> -->
