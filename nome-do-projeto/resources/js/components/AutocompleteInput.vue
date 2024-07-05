@@ -12,31 +12,32 @@
   </template>
   
   <script>
-  import axios from 'axios';
-  
-  export default {
-    data() {
-      return {
-        searchText: '',
-        suggestions: [],
-      };
-    },
-    methods: {
-      updateSuggestions() {
-        axios.post('/search', { q: this.searchText })
-          .then(response => {
-            console.log(response.data);
-            this.suggestions = response.data;
-          });
+    import axios from 'axios';
+    
+    export default {
+      data() {
+        return {
+          searchText: '',
+          suggestions: [],
+        };
       },
-      selectSuggestion(suggestion) {
-        this.searchText = suggestion.modelo;
-        this.suggestions = [];
+      methods: {
+        updateSuggestions() {
+          axios.post('/search', { q: this.searchText })
+            .then(response => {
+              console.log(response.data);
+              this.suggestions = response.data;
+            });
+        },
+        selectSuggestion(suggestion) {
+          axios.post('/try', { value: suggestion })
+            .then(response => {
+              console.log(response.data);
+            });
+        },
       },
-    },
-  };
+    };
   </script>
-
   
 <style scoped>
 .autocomplete-container {

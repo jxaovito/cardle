@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/search', 'App\Http\Controllers\SearchController@index');
+Route::post('/try', 'App\Http\Controllers\SearchController@try');

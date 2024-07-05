@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Models\Game;
+use Illuminate\Support\Facades\Cache;
 
 class GenerateRandomCar extends Command
 {
@@ -11,14 +13,14 @@ class GenerateRandomCar extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'generate:randomcar';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Generate a random car';
 
     /**
      * Create a new command instance.
@@ -37,7 +39,7 @@ class GenerateRandomCar extends Command
      */
     public function handle(){
         $car = '';
-
+        
         $car = Game::inRandomOrder()->first();
         Cache::put('random_car', $car, now()->addDay());
     }  

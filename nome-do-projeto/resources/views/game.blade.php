@@ -6,6 +6,9 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- @if(isset($imageUrl))
+        <img src="https://drive.google.com/uc?export=view&id=1_KtkuverVx9cP4tnv4vzls9gyV7LccFU">
+    @endif -->
     <style>
         body {
             display: flex;
@@ -32,11 +35,12 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        </style>
+    </style>
     <div id="app">
        <autocomplete-input></autocomplete-input>
     </div>
-<script src="{{ mix('js/app.js') }}"></script></div>
+
+    <script src="{{ mix('js/app.js') }}"></script>
 
     <div id="app"></div>
     <!-- <script type="module" src="../js/main.js"></script> -->
