@@ -7,27 +7,21 @@ use Illuminate\Support\Facades\Cache;
 
 class GameController extends Controller{
     public $searchText;
-    
+    public $generatedCar;
+
     public function index(){
         $generatedCar = Cache::get('random_car');
+
         if(!$generatedCar){
             return view('game')->with('error', 'No generated car found in cache.');
         }
-        $imageUrl = str_replace("/file/d/", "/uc?export=view&id=", 
-                    str_replace("/view?usp=sharing", "", 
-                    $generatedCar->imagem));
-        return view('game', compact('imageUrl'));
+
+        return view('game', ['car_of_the_day' => $generatedCar]);
     }
 
     public function try($value){
         $generatedCar = Cache::get('random_car');
         $tries = [];
-
-        if(!$generatedCar){
-            return ['error' => 'No generated car found in cache.'];
-        }else{
-            console.log($generatedCar);
-        }
     
         if($value['id'] == $generatedCar['id']){
             return true;
