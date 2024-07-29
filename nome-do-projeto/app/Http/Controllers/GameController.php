@@ -9,14 +9,18 @@ class GameController extends Controller{
     public $searchText;
     public $generatedCar;
 
-    public function index(){
+    public function show() {
+        return view('game');
+    }
+
+    public function index(Request $request) {
         $generatedCar = Cache::get('random_car');
 
-        if(!$generatedCar){
-            return view('game')->with('error', 'No generated car found in cache.');
+        if (!$generatedCar) {
+            return response()->json(['error' => 'No generated car found in cache.'], 404);
         }
 
-        return view('game', ['car_of_the_day' => $generatedCar]);
+        return response()->json(['car_of_the_day' => $generatedCar]);
     }
 
     public function try($value){

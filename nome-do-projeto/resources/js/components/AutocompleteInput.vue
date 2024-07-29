@@ -44,11 +44,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30vh;
+  height: 15vh;
 }
 
 .autocomplete-input{
-  width:450px;
+  width:550px;
   padding: 2px;
   height:30px;
   border: 1px solid #ccc;
@@ -60,7 +60,7 @@
 }
 .suggestions-container {
   position: absolute;
-  width: 450px;
+  width: 550px;
   padding: 2px;
   background-color: #fff;
   border: 1px solid #ccc;

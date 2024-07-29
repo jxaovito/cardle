@@ -5,6 +5,6 @@ import RandomCarImage from './components/RandomCarImage.vue';
 const app = createApp({});
 
 app.component('autocomplete-input', AutocompleteInput);
-app.component('random-car-image', RandomCarImage);
+app.component('image-preview-container', RandomCarImage);
 
 app.mount('#app');

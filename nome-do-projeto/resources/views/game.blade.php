@@ -43,7 +43,7 @@
             <div>No Car of the Day found.</div>
         @endif
     </div> -->
-        <random-car-image></random-car-image>
+        <image-preview-container></image-preview-container>
        <autocomplete-input></autocomplete-input>
     </div>
 
