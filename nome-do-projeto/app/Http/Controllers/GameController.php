@@ -4,39 +4,70 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use App\Models\Game;
 
-class GameController extends Controller{
-    public $searchText;
-    public $generatedCar;
-
-    public function show() {
+class GameController extends Controller
+{
+    public function show()
+    {
         return view('game');
     }
 
-    public function index(Request $request) {
-        $generatedCar = Cache::get('random_car');
+    public function dailyCar()
+    {
+        $car = $this->getDailyCar();
 
-        if (!$generatedCar) {
-            return response()->json(['error' => 'No generated car found in cache.'], 404);
+        if (!$car) {
+            return response()->json(['error' => 'Nenhum carro encontrado.'], 404);
         }
 
-        return response()->json(['car_of_the_day' => $generatedCar]);
+        return response()->json([
+            'car_of_the_day' => ['foto' => $car->foto],
+        ]);
     }
 
-    public function try($value){
-        $generatedCar = Cache::get('random_car');
-        $tries = [];
-    
-        if($value['id'] == $generatedCar['id']){
-            return true;
-        }
-    
-        $tries[0] = $value['modelo'] == $generatedCar->modelo ? 1 : 0;
-        $tries[1] = $value['carroceria'] == $generatedCar->carroceria ? 1 : 0;
-        $tries[2] = $value['motor'] == $generatedCar->motor ? 1 : ($value['motor'] < $generatedCar->motor ? 2 : 3);
-        $tries[3] = $value['ano_lancamento'] == $generatedCar->ano_lancamento ? 1 : ($value['ano_lancamento'] < $generatedCar->ano_lancamento ? 2 : 3);
-        $tries[4] = $value['peso'] == $generatedCar->peso ? 1 : ($value['peso'] < $generatedCar->peso ? 2 : 3);
+    public function attempt(Request $request)
+    {
+        $carId = $request->input('id');
+        $guessed = Game::findOrFail($carId);
+        $daily = $this->getDailyCar();
 
-        return $tries;   
+        if (!$daily) {
+            return response()->json(['error' => 'Carro do dia não encontrado.'], 404);
+        }
+
+        return response()->json(Game::compare($guessed, $daily));
+    }
+
+    public function gameOver()
+    {
+        $car = $this->getDailyCar();
+
+        if (!$car) {
+            return response()->json(['error' => 'Nenhum carro encontrado.'], 404);
+        }
+
+        return response()->json([
+            'marca' => $car->marca,
+            'modelo' => $car->modelo,
+            'foto' => $car->foto,
+        ]);
+    }
+
+    private function getDailyCar(): ?Game
+    {
+        $cached = Cache::get('random_car');
+
+        if ($cached instanceof Game) {
+            return $cached;
+        }
+
+        // Cache miss or stale — pick a new random car
+        $car = Game::inRandomOrder()->first();
+        if ($car) {
+            Cache::put('random_car', $car, now()->endOfDay());
+        }
+
+        return $car;
     }
 }
